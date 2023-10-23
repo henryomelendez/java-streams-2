@@ -16,6 +16,11 @@ public class Main {
 
     private static void ex1() {
         // TODO...
+        var peopleList = DataRepo.getPeople();
+        var retList = peopleList.stream()
+                .filter(x -> x.getAge() > 30)
+                        .collect(Collectors.toList());
+        System.out.println(retList);
     }
 
     private static void ex2() {
