@@ -6,10 +6,11 @@ import java.util.*;
 import java.text.NumberFormat;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        ex7();
+        ex8();
     }
     private static void ex1() {
         // TODO...
@@ -69,12 +70,18 @@ public class Main {
         // TODO...
         List<Car> cars = DataRepo.getCars();
         List<Person> people = DataRepo.getPeople();
-
-
+        Map<Integer, String> map = cars.stream()
+                .collect(Collectors.toMap(Car::getId, Car::getModel));
+        List<String> result = people.stream()
+                .map(person -> map.getOrDefault(person.getCarId(), "none"))
+                .collect(Collectors.toList());
+        System.out.println(result.toString());
     }
 
     private static void ex9() {
         // TODO...
+        List<Car> cars = DataRepo.getCarsWithEngines();
+
     }
     private static void ex10() {
         // TODO...
