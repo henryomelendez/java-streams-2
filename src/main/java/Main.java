@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        ex8();
+        ex9();
     }
     private static void ex1() {
         // TODO...
@@ -70,20 +70,27 @@ public class Main {
         // TODO...
         List<Car> cars = DataRepo.getCars();
         List<Person> people = DataRepo.getPeople();
+
         Map<Integer, String> map = cars.stream()
                 .collect(Collectors.toMap(Car::getId, Car::getModel));
+
         List<String> result = people.stream()
                 .map(person -> map.getOrDefault(person.getCarId(), "none"))
                 .collect(Collectors.toList());
+
         System.out.println(result.toString());
     }
 
     private static void ex9() {
-        // TODO...
         List<Car> cars = DataRepo.getCarsWithEngines();
-
+        List<EngineRecord> engineRecords = cars.stream()
+                .map(p -> new EngineRecord(p.getEngine().getNumCylinders(), p.getEngine().getDisplacment(), p.getEngine().getNumCylinders() >= 8 ?
+                        p.getEngine().getDisplacment() * 100 : 0))
+                .collect(Collectors.toList());
+        System.out.println(engineRecords);;
     }
     private static void ex10() {
         // TODO...
+
     }
 }
