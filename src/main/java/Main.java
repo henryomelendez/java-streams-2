@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        ex9();
+        ex10();
     }
     private static void ex1() {
         // TODO...
@@ -54,7 +54,7 @@ public class Main {
         List<Person> personList = DataRepo.getPeople();
         personList.stream().map(person -> person.getFirstName().toUpperCase())
                 .forEach(p -> System.out.print(p + ", "));
-        System.out.print("]");
+        System.out.print(personList);
     }
 
     private static void ex7() {
@@ -70,17 +70,13 @@ public class Main {
         // TODO...
         List<Car> cars = DataRepo.getCars();
         List<Person> people = DataRepo.getPeople();
-
         Map<Integer, String> map = cars.stream()
                 .collect(Collectors.toMap(Car::getId, Car::getModel));
-
         List<String> result = people.stream()
                 .map(person -> map.getOrDefault(person.getCarId(), "none"))
                 .collect(Collectors.toList());
-
         System.out.println(result.toString());
     }
-
     private static void ex9() {
         List<Car> cars = DataRepo.getCarsWithEngines();
         List<EngineRecord> engineRecords = cars.stream()
@@ -91,6 +87,13 @@ public class Main {
     }
     private static void ex10() {
         // TODO...
-
+        List<Car> cars = DataRepo.getCarsWithEngines();
+       List<CarRecord> carRecords =  cars.stream()
+                .map(x ->
+                        new CarRecord(x.getId(), x.getMake(), x.getModel(),
+                                NumberFormat.getCurrencyInstance()
+                                        .format(x.getPrice() + (x.getEngine().getNumCylinders() >= 8 ? x.getEngine().getDisplacment() * 100 : 0))
+                        )).collect(Collectors.toList());
+        System.out.println(carRecords);
     }
 }
